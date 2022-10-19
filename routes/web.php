@@ -2,7 +2,9 @@
 
 use App\Http\Controllers\MollieController;
 use App\Http\Controllers\UserCodeController;
+use App\Mail\CodeEmail;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Mail;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,6 +25,13 @@ Route::get('/invest/', function ()
 {
     return view('invest.home');
 })->name('invest.home');
+
+Route::get('/testmail', function ()
+{
+    $code = 'test';
+    Mail::to(request()->user())->send(new CodeEmail($code));
+});
+
 Route::get('/startup/', function ()
 {
     return view('startup.home');
