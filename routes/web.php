@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\MollieController;
+use App\Http\Controllers\UserCodeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -29,6 +31,12 @@ Route::get('/startup/', function ()
 Route::get('/dashboard', function ()
 {
     return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
+})->middleware(['auth', 'verified', 'code'])->name('dashboard');
 
+Route::group(['as' => 'code.', 'prefix' => 'code', 'middleware' => ['auth', 'verified']], function ()
+{
+    Route::get('', [UserCodeController::class, 'index'])->name('index');
+    Route::get('request', [UserCodeController::class, 'request'])->name('request');
+    Route::post('verify', [UserCodeController::class, 'verify'])->name('verify');
+});
 require __DIR__ . '/auth.php';
