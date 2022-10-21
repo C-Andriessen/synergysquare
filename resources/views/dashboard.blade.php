@@ -1,4 +1,4 @@
-<x-app-layout>
+<x-investor-layout>
     <x-slot name="header">
         <h1 class="text-3xl font-bold tracking-tight text-white">
             Welcome {{ Auth::user()->name }}
@@ -320,4 +320,4 @@
             </table>
         </div>
     </div>
-</x-app-layout>
+</x-investor-layout>

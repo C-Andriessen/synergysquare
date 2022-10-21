@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MollieController;
 use App\Http\Controllers\UserCodeController;
 use App\Mail\CodeEmail;
@@ -47,5 +48,13 @@ Route::group(['as' => 'code.', 'prefix' => 'code', 'middleware' => ['auth', 'ver
     Route::get('', [UserCodeController::class, 'index'])->name('index');
     Route::get('request', [UserCodeController::class, 'request'])->name('request');
     Route::post('verify', [UserCodeController::class, 'verify'])->name('verify');
+});
+
+Route::group(['as' => 'pages.', 'prefix' => 'pages'], function ()
+{
+    Route::group(['as' => 'startup.', 'prefix' => 'startup'], function ()
+    {
+        Route::get('', [HomeController::class, 'startupIndex'])->name('index');
+    });
 });
 require __DIR__ . '/auth.php';
